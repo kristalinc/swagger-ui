@@ -1567,3 +1567,7 @@ e.SwaggerModel = SwaggerModel;
 e.SwaggerModelProperty = SwaggerModelProperty;
 e.SwaggerResource = SwaggerResource;
 e.SwaggerApi = SwaggerApi;
+l = SwaggerModel;
+e.SwaggerModelProperty = SwaggerModelProperty;
+e.SwaggerResource = SwaggerResource;
+e.SwaggerApi = SwaggerApi;
