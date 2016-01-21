@@ -153,6 +153,10 @@
         font-size: 25px;
     }
 
+    .footer {
+        margin-top: 20px;
+    }
+
     p.big, div.big p {
         font-size: 1em;
         margin-bottom: 10px;
@@ -176,7 +180,15 @@
         color: #cc0000;
     }
 
-    .info_contact {
+    .info_url {
+        padding-bottom: 5px;
+    }
+
+    .info_email {
+        padding-bottom: 5px;
+    }
+
+    .info_name {
         padding-bottom: 5px;
     }
 
@@ -242,6 +254,7 @@
         }
         ul.signature-nav {
             display: block;
+            min-width: 230px;
             margin: 0;
             padding: 0;
             li:last-child {
@@ -281,6 +294,47 @@
                 font-weight: bold;
                 color: #000;
             }
+            .propWrap {
+                .optionsWrapper {
+                    border-spacing: 0;
+                    position: absolute;
+                    background-color: #ffffff;
+                    border: 1px solid #bbbbbb;
+                    display: none;
+                    font-size: 11px;
+                    max-width: 400px;
+                    line-height: 30px;
+                    color: black;
+                    padding: 5px;
+                    margin-left:10px;
+                    th {
+                        text-align: center;
+                        background-color: #eeeeee;
+                        border: 1px solid #bbbbbb;
+                        font-size: 11px;
+                        color: #666666;
+                        font-weight: bold;
+                        padding: 5px;
+                        line-height: 15px;
+                    }
+                    .optionName {
+                        font-weight: bold;
+                    }
+                }
+            }
+            .propDesc.markdown {
+                > p:first-child,
+                > p:last-child {
+                    display: inline;
+                }
+                > p:not(:first-child):before {
+                    display: block;
+                    content: '';
+                }
+            }
+            span:last-of-type.propDesc.markdown > p:only-child {
+                margin-right: -3px; // otherwise there is a gap before the comma
+            }
         }
         .propName {
             font-weight: bold;
@@ -305,6 +359,19 @@
 
     .required {
         font-weight: bold;
+    }
+
+    /* JSONEditor specific styling */
+    .editor_holder {
+       font-family: "Anonymous Pro", "Menlo", "Consolas", "Bitstream Vera Sans Mono", "Courier New", monospace;
+       font-size: 0.9em;
+        label {
+            font-weight:normal!important; /* JSONEditor uses bold by default for all labels, we revert that back to normal to not give the impression that by default fields are required */
+        }    
+    }
+    
+    .editor_holder label.required {
+        font-weight:bold!important; 
     }
 
     input.parameter {
@@ -672,11 +739,6 @@
                                         display: inline-block;
                                         font-size: 0.9em;
                                     }
-                                    img {
-                                        display: block;
-                                        clear: none;
-                                        float: right;
-                                    }
                                     input.submit {
                                         display: block;
                                         clear: none;
@@ -696,11 +758,22 @@
                                         border-radius:2px;
                                         margin-left: 10px;
                                     }
+                                    span.response_throbber {
+                                      background-image: url('../images/throbber.gif');
+                                      width: 128px;
+                                      height: 16px;
+                                      display: block;
+                                      clear: none;
+                                      float: right;
+                                    }
                                 }
                                 form {
                                     input[type='text'].error {
                                         outline: 2px solid black;
                                         outline-color: #cc0000;
+                                    }
+                                    select[name='parameterContentType'] {
+                                        max-width:300px;
                                     }
                                 }
                                 div.response {
@@ -1072,6 +1145,10 @@
                 color: black;
             }
         }
+    }
+
+    .operation-status td.markdown > p:last-child {
+        padding-bottom: 0;
     }
 }
 

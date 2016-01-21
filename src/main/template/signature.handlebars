@@ -1,17 +1,36 @@
 <div>
 <ul class="signature-nav">
-    <li><a class="description-link" href="#">Model</a></li>
-    <li><a class="snippet-link" href="#">Model Schema</a></li>
+  <li><a class="description-link" href="#" data-sw-translate>Model</a></li>
+  <li><a class="snippet-link" href="#" data-sw-translate>Example Value</a></li>
 </ul>
 <div>
 
 <div class="signature-container">
+{{!-- <<<<<<< HEAD
     <div class="snippet">
         <pre><code>{{sampleJSON}}</code></pre>
         <large class="notice"></large>
     </div>
         <div class="description">
         {{{signature}}}
-    </div>
-</div>
+======= --}}
+  <div class="description">
+    {{{signature}}}
+  </div>
 
+  <div class="snippet">
+  {{#if sampleJSON}}
+      <div class="snippet_json">
+        <pre><code>{{sampleJSON}}</code></pre>
+        {{#if isParam}}<small class="notice" data-sw-translate></small>{{/if}}
+      </div>
+  {{/if}}
+  {{#if sampleXML}}
+    <div class="snippet_xml">
+      <pre><code>{{sampleXML}}</code></pre>
+      {{#if isParam}}<small class="notice" data-sw-translate></small>{{/if}}
+{{!-- >>>>>>> 43a78f965807dc2391506d7ca6f3ac5c0da1df52 --}}
+    </div>
+  {{/if}}
+  </div>
+</div>

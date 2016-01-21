@@ -1,16 +1,17 @@
-<td class='code'>{{name}}</td>
+<td class='code'><label for='{{valueId}}'>{{name}}</label></td>
 <td>
     {{#if isBody}}
-        <textarea class='body-textarea' readonly='readonly' name='{{name}}'>{{defaultValue}}</textarea>
+        <textarea class='body-textarea' readonly='readonly' name='{{name}}' id='{{valueId}}'>{{default}}</textarea>
+        <div class="parameter-content-type" />
     {{else}}
-        {{#if defaultValue}}
-            {{defaultValue}}
+        {{#if default}}
+            {{default}}
         {{else}}
             (empty)
         {{/if}}
     {{/if}}
 </td>
-<td>{{{description}}}</td>
+<td class="markdown">{{{description}}}</td>
 <td>{{{paramType}}}</td>
 <td>
     {{#if isBody}}
