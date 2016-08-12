@@ -37,4 +37,4 @@ class MainView extends Backbone.View
     $("nav.rest-api-sidebar", $(@el)).affix({offset: { top: 120, bottom: 0 }})
 
   setAffixGlobalParameters: ->
-    $("#global_params_container", $(@el)).affix({offset: { top: 160, bottom: 0 }})
+    $("#global_params_container", $(@el)).affix({offset: { top: 110, bottom: 0 }})
