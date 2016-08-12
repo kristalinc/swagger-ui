@@ -3848,9 +3848,10 @@ a.footer-social-link:link {
   border-bottom: none;
 }
 footer.clover-footer {
-  font-family: "Roboto", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   background: #1e2321;
+  font-family: "Roboto", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   margin-top: 0;
+  z-index: 5;
 }
 footer.clover-footer hr {
   border-color: rgba(228, 228, 228, 0.1);
@@ -17831,6 +17832,7 @@ header.section-header {
   border-bottom: 0;
 }
 #global_params_container.affix {
+  position: fixed !important;
   width: 80%;
   z-index: 5;
   top: 0;
@@ -17880,6 +17882,7 @@ li.resource {
 .flex-wrapper div#swagger-ui-container .rest-api-sidebar-wrapper {
   background: #FCFCFC;
   box-shadow: 2px 0 2px 0 rgba(0, 0, 0, 0.14), 1px 0 5px 0 rgba(0, 0, 0, 0.12), 3px 0 1px -2px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
   padding-top: 24px;
   flex: 1 1 25%;
   z-index: 10;
@@ -17899,6 +17902,7 @@ li.resource {
   margin-top: 32px;
   padding-left: 32px;
   padding-right: 32px;
+  padding-bottom: 200px;
 }
 section.c-box-filter {
   padding-top: 24px;

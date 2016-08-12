@@ -1984,7 +1984,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
     MainView.prototype.setAffixGlobalParameters = function() {
       return $("#global_params_container", $(this.el)).affix({
         offset: {
-          top: 160,
+          top: 110,
           bottom: 0
         }
       });
