@@ -1,24 +1,22 @@
-<div class='heading'>
-  <h2>
-    <a href='#!/{{id}}' onclick="Docs.toggleEndpointListForResource('{{id}}');">{{name}}</a> {{#description}} {{/description}}{{{description}}}
-  </h2>
-  <ul class='options'>
-    <li>
-      <a href='#!/{{id}}' id='endpointListTogger_{{id}}'
-         onclick="Docs.toggleEndpointListForResource('{{id}}');">Show/Hide</a>
-    </li>
-    <li>
-      <a href='#' onclick="Docs.collapseOperationsForResource('{{id}}'); return false;">
-        List Operations
-      </a>
-    </li>
-    <li>
-      <a href='#' onclick="Docs.expandOperationsForResource('{{id}}'); return false;">
-        Expand Operations
-      </a>
-    </li>
-  </ul>
+<div class="heading row resource-handlebars">
+  <div class="col-xs-6 col-sm-8">
+    <h2 class="resource-title">
+      <a href="#!/{{id}}">{{name}}</a> {{#description}} {{{description}}} {{/description}}
+    </h2>
+  </div>
+  <div class="options col-xs-6 col-sm-4 text-right">
+    <button class="button__toggle expand_button" href="#">
+      <i class="fa fa-plus-square-o"></i>
+      Show Operations
+    </button>
+    <button class="button__toggle collapse_button" href="#" hidden="true">
+      <i class="fa fa-minus-square-o"></i>
+      Hide Operations
+    </button>
+  </div>
 </div>
-<ul class='endpoints' id='{{id}}_endpoint_list' style='display:none'>
+<div class="row">
+  <div class='operationTypes' id='{{id}}_endpoint_list' style='display:block'>
 
-</ul>
+  </div>
+</div>

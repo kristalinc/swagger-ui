@@ -1,0 +1,74 @@
+@import (reference) "c-colors";
+
+// Typefaces
+@sans-serif-font: "Roboto", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+@slab-serif-font: "Roboto Slab", "Roboto", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+@monospace-font: "Roboto Mono", "Source Code Pro", "Anonymous Pro", Consolas, Monaco, monospace;
+
+// Headers
+h1, h2 {
+  font-family: @sans-serif-font;
+}
+h3, h4 {
+  font-family: @slab-serif-font;
+}
+h1 {
+  font-size: 24px;
+  letter-spacing: 0;
+  .app-header & {
+    font-weight: 600;
+  }
+}
+h2 {
+  font-size: 20px;
+}
+h3 {
+  font-size: 18px;
+  letter-spacing: 0;
+}
+h4 {
+  margin: 0;
+}
+
+
+// Content Styles
+p {
+  font-family: @sans-serif-font;
+  font-size: 14px;
+}
+pre, code, kbd {
+  font-family: @monospace-font;
+}
+a, a:link, a:visited {
+  color: @c-mtrl-green-text;
+  font-family: @sans-serif-font;
+}
+a.c-button-sm-secondary {
+  color: @clover-white;
+}
+
+input, button, select, textarea {
+  font-family: @sans-serif-font;
+}
+
+.c-help-text {
+  font-size: 11px;
+  color: @c-mtrl-gray-50;
+  text-transform: capitalize;
+}
+
+.c-code-help {
+  font-family: @monospace-font;
+  font-size: 11px;
+  color: @c-mtrl-gray-50;
+}
+
+.model-signature, .data-type {
+  text-transform: none;
+  /* &:before {
+    content: '(';
+  }
+  &:after {
+    content: ')';
+  } */
+}

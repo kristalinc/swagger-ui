@@ -1,34 +1,35 @@
 class ResourceView extends Backbone.View
+
+  events: {
+    'click .expand_button' : 'expandOperations'
+    'click .collapse_button' : 'collapseOperations'
+  }
+
   initialize: ->
 
   render: ->
-    $(@el).html(Handlebars.templates.resource(@model))
-
-    methods = {}
+    $(@el).html(Handlebars.templates.resource(@model.toJSON()))
 
     # Render each operation
-    for operation in @model.operationsArray
-      counter = 0
-
-      id = operation.nickname
-      while typeof methods[id] isnt 'undefined'
-        id = id + "_" + counter
-        counter += 1
-
-      methods[id] = operation
-
-      operation.nickname = id
-      operation.parentId = @model.id
-      @addOperation operation 
+    @addTypes()
     @
 
-  addOperation: (operation) ->
+  addTypes: ->
+    for typeModel in @model.get('typeModels')
+      typeView = new TypeView({
+        model: typeModel
+        tagName: 'li'
+        id: typeModel.get('viewId')
+      })
+      $('.operationTypes', $(@el)).append(typeView.render().el)
 
-    operation.number = @number
 
-    # Render an operation and add it to operations li
-    operationView = new OperationView({model: operation, tagName: 'li', className: 'endpoint'})
-    $('.endpoints', $(@el)).append operationView.render().el
+  expandOperations: ->
+    $(@el).find('.expand_button').attr('hidden', true)
+    $(@el).find('.collapse_button').attr('hidden', false)
+    $('li#resource_' + swaggerUiRouter.escapeResourceName(@model.get('id'))).find('div.content').slideDown()
 
-    @number++
-    
+  collapseOperations: ->
+    $(@el).find('.expand_button').attr('hidden', false)
+    $(@el).find('.collapse_button').attr('hidden', true)
+    $('li#resource_' + swaggerUiRouter.escapeResourceName(@model.get('id'))).find('div.content').slideUp()

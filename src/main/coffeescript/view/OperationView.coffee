@@ -6,106 +6,59 @@ class OperationView extends Backbone.View
     'click .submit'           : 'submitOperation'
     'click .response_hider'   : 'hideResponse'
     'click .toggleOperation'  : 'toggleOperationContent'
-    'mouseenter .api-ic'      : 'mouseEnter'
-    'mouseout .api-ic'        : 'mouseExit'
+    'click .expandable'       : 'expandedFromJSON'
   }
 
   initialize: ->
 
-  mouseEnter: (e) ->
-    elem = $(e.currentTarget.parentNode).find('#api_information_panel')
-    x = event.pageX
-    y = event.pageY
-    scX = $(window).scrollLeft()
-    scY = $(window).scrollTop()
-    scMaxX = scX + $(window).width()
-    scMaxY = scY + $(window).height()
-    wd = elem.width()
-    hgh = elem.height()
-
-    if (x + wd > scMaxX)
-      x = scMaxX - wd
-    if (x < scX)
-      x = scX
-    if (y + hgh > scMaxY)
-      y = scMaxY - hgh
-    if (y < scY)
-      y = scY
-    pos = {}
-    pos.top = y
-    pos.left = x
-    elem.css(pos)
-    $(e.currentTarget.parentNode).find('#api_information_panel').show()
-
-  mouseExit: (e) ->
-    $(e.currentTarget.parentNode).find('#api_information_panel').hide()
+  template: ->
+    Handlebars.templates.operation
 
   render: ->
-    isMethodSubmissionSupported = true #jQuery.inArray(@model.method, @model.supportedSubmitMethods) >= 0
-    @model.isReadOnly = true unless isMethodSubmissionSupported
-
-    @model.oauth = null
-    if @model.authorizations
-      for k, v of @model.authorizations
-        if k == "oauth2"
-          if @model.oauth == null
-            @model.oauth = {}
-          if @model.oauth.scopes is undefined
-            @model.oauth.scopes = []
-          for o in v
-            @model.oauth.scopes.push o
-
-    @model.method = @model.method.toUpperCase()
-    $(@el).html(Handlebars.templates.operation(@model))
-
-    if @model.responseClassSignature and @model.responseClassSignature != 'string'
-      signatureModel =
-        sampleJSON: @model.responseSampleJSON
-        isParam: false
-        signature: @model.responseClassSignature
-        
-      responseSignatureView = new SignatureView({model: signatureModel, tagName: 'div'})
-      $('.model-signature', $(@el)).append responseSignatureView.render().el
-    else
-      $('.model-signature', $(@el)).html(@model.type)
+    template = @template()
+    $(@el).html(template(@model.toJSON()))
 
     contentTypeModel =
       isParam: false
 
-    contentTypeModel.consumes = @model.consumes
-    contentTypeModel.produces = @model.produces
-
-    for param in @model.parameters
-      type = param.type || param.dataType
-      if type.toLowerCase() == 'file'
-        if !contentTypeModel.consumes
-          log "set content type "
-          contentTypeModel.consumes = 'multipart/form-data'
-
     responseContentTypeView = new ResponseContentTypeView({model: contentTypeModel})
     $('.response-content-type', $(@el)).append responseContentTypeView.render().el
 
-    # Render each parameter
-    @addParameter param, contentTypeModel.consumes for param in @model.parameters
+    @addParameterViews()
+
+    @addSignatureView()
 
     # Render each response code
-    @addStatusCode statusCode for statusCode in @model.responseMessages
+    @addStatusCode statusCode for statusCode in @model.get("responseMessages")
 
     @
 
-  addParameter: (param, consumes) ->
-    # Render a parameter
-    param.consumes = consumes
-    paramView = new ParameterView({model: param, tagName: 'tr', readOnly: @model.isReadOnly})
-    $('.operation-params', $(@el)).append paramView.render().el
+  addSignatureView: ->
+    signatureModel = @model.getSignatureModel()
+    if signatureModel
+      signatureView = new SignatureView({model: signatureModel})
+      $('.model-signature', $(@el)).append(signatureView.render().el)
+    else
+      $('.data-type', $(@el)).html(@model.get("type"))
+
+  addParameterViews: ->
+    for param in @model.get("parameterModels")
+      paramView = new ParameterView({model: param, tagName: 'div'})
+      $('.operation-params', $(@el)).append paramView.render().el
+      signatureModel = param.getSignatureModel()
+      if signatureModel and param.get("isBody")
+        signatureView = new SignatureView({model: signatureModel})
+        $('.model-signature', $(@el)).append(signatureView.render().el)
+
 
   addStatusCode: (statusCode) ->
     # Render status codes
     statusCodeView = new StatusCodeView({model: statusCode, tagName: 'tr'})
     $('.operation-status', $(@el)).append statusCodeView.render().el
-  
-  submitOperation: (e) ->
-    e?.preventDefault()
+
+  submitOperation: (ev) ->
+    ev?.preventDefault()
+
     # Check for errors
     form = $('.sandbox', $(@el))
     error_free = true
@@ -121,23 +74,13 @@ class OperationView extends Backbone.View
     if error_free
       map = {}
       opts = {parent: @}
-
       isFileUpload = false
-
-      for o in form.find("input")
-        if(o.value? && jQuery.trim(o.value).length > 0)
-          map[o.name] = o.value
-        if o.type is "file"
+      for param in @model.get("parameterModels")
+        if param.get("isFile")
           isFileUpload = true
-
-      for o in form.find("textarea")
-        if(o.value? && jQuery.trim(o.value).length > 0)
-          map["body"] = o.value
-
-      for o in form.find("select") 
-        val = this.getSelectedValue o
-        if(val? && jQuery.trim(val).length > 0)
-          map[o.name] = val
+        value = param.getQueryParamString()
+        if value && jQuery.trim(value).length > 0
+          map[param.get("name")] = value
 
       opts.responseContentType = $("div select[name=responseContentType]", $(@el)).val()
       opts.requestContentType = $("div select[name=parameterContentType]", $(@el)).val()
@@ -161,14 +104,14 @@ class OperationView extends Backbone.View
     params = 0
 
     # add params
-    for param in @model.parameters
+    for param in @model.get("parameters")
       if param.paramType is 'form'
         if map[param.name] != undefined
             bodyParam.append(param.name, map[param.name])
 
     # headers in operation
     headerParams = {}
-    for param in @model.parameters
+    for param in @model.get("parameters")
       if param.paramType is 'header'
         headerParams[param.name] = map[param.name]
 
@@ -182,7 +125,7 @@ class OperationView extends Backbone.View
 
     log(bodyParam)
 
-    @invocationUrl = 
+    @invocationUrl =
       if @model.supportHeaderParams()
         headerParams = @model.getHeaderParams(map)
         @model.urlify(map, false)
@@ -191,8 +134,8 @@ class OperationView extends Backbone.View
 
     $(".request_url", $(@el)).html "<pre>" + @invocationUrl + "</pre>"
 
-    obj = 
-      type: @model.method
+    obj =
+      type: @model.get("method")
       url: @invocationUrl
       headers: headerParams
       data: bodyParam
@@ -236,17 +179,6 @@ class OperationView extends Backbone.View
     o.status = data.status
     o
 
-  getSelectedValue: (select) ->
-    if !select.multiple 
-      select.value
-    else
-      options = []
-      options.push opt.value for opt in select.options when opt.selected
-      if options.length > 0 
-        options.join ","
-      else
-        null
-
   # handler for hide response link
   hideResponse: (e) ->
     e?.preventDefault()
@@ -278,7 +210,7 @@ class OperationView extends Backbone.View
     lines = xml.split('\n')
     indent = 0
     lastType = 'other'
-    # 4 types of tags - single, closing, opening, other (text, doctype, comment) - 4*4 = 16 transitions 
+    # 4 types of tags - single, closing, opening, other (text, doctype, comment) - 4*4 = 16 transitions
     transitions =
       'single->single': 0
       'single->closing': -1
@@ -322,9 +254,9 @@ class OperationView extends Backbone.View
           formatted = formatted.substr(0, formatted.length - 1) + ln + '\n'
         else
           formatted += padding + ln + '\n'
-      
+
     formatted
-    
+
 
   # puts the response data in UI
   showStatus: (response) ->
@@ -359,7 +291,7 @@ class OperationView extends Backbone.View
       pre = $('<pre class="json" />').append(code)
 
     response_body = pre
-    $(".request_url", $(@el)).html "<pre>" + url + "</pre>"
+    $(".request_url", $(@el)).html "<pre>" + decodeURIComponent(url) + "</pre>"
     $(".response_code", $(@el)).html "<pre>" + response.status + "</pre>"
     $(".response_body", $(@el)).html response_body
     $(".response_headers", $(@el)).html "<pre>" + JSON.stringify(response.headers, null, "  ").replace(/\n/g, "<br>") + "</pre>"
@@ -369,5 +301,6 @@ class OperationView extends Backbone.View
     hljs.highlightBlock($('.response_body', $(@el))[0])
 
   toggleOperationContent: ->
-    elem = $('#' + Docs.escapeResourceName(@model.parentId) + "_" + @model.nickname + "_content")
-    if elem.is(':visible') then Docs.collapseOperation(elem) else Docs.expandOperation(elem)
+    $elem = $('#' + swaggerUiRouter.escapeResourceName(@model.get("parentId")) + "_" + @model.get("nickname") + "_content")
+    if $elem.is(':visible') then $elem.slideUp() else $elem.slideDown()
+    # if $elem.isnot(':visible') then $($elem).parent.addClass('content-open') else $($elem).parent.removeClass('content-open')

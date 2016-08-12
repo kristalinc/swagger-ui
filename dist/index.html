@@ -2,22 +2,23 @@
 <html>
 <head>
   <title>Clover V3 API Documentation</title>
-  <link href='https://fonts.googleapis.com/css?family=Droid+Sans:400,700' rel='stylesheet' type='text/css'/>
-  <link href='/api_docs/css/reset.css' media='screen' rel='stylesheet' type='text/css'/>
-  <link href='/api_docs/css/screen.css' media='screen' rel='stylesheet' type='text/css'/>
-  <link href='/api_docs/css/reset.css' media='print' rel='stylesheet' type='text/css'/>
-  <link href='/api_docs/css/screen.css' media='print' rel='stylesheet' type='text/css'/>
-  <script type="text/javascript" src="/api_docs/lib/shred.bundle.js"></script>
-  <script src='/api_docs/lib/jquery-1.8.0.min.js' type='text/javascript'></script>
-  <script src='/api_docs/lib/jquery.slideto.min.js' type='text/javascript'></script>
-  <script src='/api_docs/lib/jquery.wiggle.min.js' type='text/javascript'></script>
-  <script src='/api_docs/lib/jquery.ba-bbq.min.js' type='text/javascript'></script>
-  <script src='/api_docs/lib/handlebars-1.0.0.js' type='text/javascript'></script>
-  <script src='/api_docs/lib/underscore-min.js' type='text/javascript'></script>
-  <script src='/api_docs/lib/backbone-min.js' type='text/javascript'></script>
-  <script src='/api_docs/lib/swagger.js' type='text/javascript'></script>
-  <script src='/api_docs/swagger-ui.js' type='text/javascript'></script>
-  <script src='/api_docs/lib/highlight.7.3.pack.js' type='text/javascript'></script>
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Mono:300,300i,500,500i|Roboto+Slab:300,400|Roboto:300,300i,400,400i,500,500i" rel="stylesheet">
+  <link href="/api_docs/css/reset.css" rel="stylesheet" type="text/css"/>
+  <link href="/api_docs/css/bootstrap.css" rel="stylesheet" type="text/css"/>
+  <link href="/api_docs/lib/select2.min.css" rel="stylesheet" />
+  <link href="/api_docs/css/screen.css" rel="stylesheet" type="text/css"/>
+  <script src="/api_docs/lib/shred.bundle.js" type="text/javascript"></script>
+  <script src="/api_docs/lib/jquery-1.8.0.min.js" type="text/javascript"></script>
+  <script src="/api_docs/lib/jquery.slideto.min.js" type="text/javascript"></script>
+  <script src="/api_docs/lib/jquery.wiggle.min.js" type="text/javascript"></script>
+  <script src="/api_docs/lib/jquery.ba-bbq.min.js" type="text/javascript"></script>
+  <script src="/api_docs/lib/handlebars-1.0.0.js" type="text/javascript"></script>
+  <script src="/api_docs/lib/underscore-min.js" type="text/javascript"></script>
+  <script src="/api_docs/lib/backbone-min.js" type="text/javascript"></script>
+  <script src="/api_docs/lib/swagger.js" type="text/javascript"></script>
+  <script src="/api_docs/swagger-ui.min.js" type="text/javascript"></script>
+  <script src="/api_docs/lib/highlight.7.3.pack.js" type="text/javascript"></script>
+  <script src="/api_docs/lib/select2.full.min.js"></script>
 
   <script type="text/javascript">
     $(document).ready(function() {
@@ -25,59 +26,106 @@
         window.location.origin = window.location.protocol+"//"+window.location.host;
       }
       var baseURL = window.location.origin;
-      $('[id="overviewLink"]').attr("href","https://docs.clover.com/build/web-apps/web-api/");
-      $('[id="logo"]').attr("href",baseURL + "/docs");
-    });
+      $('[id="logo"]').attr("href",baseURL);
 
-    $(function () {
-      window.swaggerUi = new SwaggerUi({
-      url: window.location.origin + "/v3/api/api_docs",
-      dom_id: "swagger-ui-container",
-      supportedSubmitMethods: ['get', 'post', 'put', 'delete'],
-      onComplete: function(swaggerApi, swaggerUi){
-        $('pre code').each(function(i, e) {
-          hljs.highlightBlock(e)
-        });
-      },
-      docExpansion: "none"
-    });
-
-    $('#input_mId').change(function() {
-      var id = $('#input_mId')[0].value;
-      $('[name="mId"]').each(function() {
-        $(this).val(id);
+      window.swaggerUiRouter = new SwaggerUiRouter({
+        url: window.location.origin + "/v3/api/api_docs",
+        dom_id: "swagger-ui-container",
+        supportedSubmitMethods: ['get', 'post', 'put', 'delete']
       });
+    window.swaggerUiRouter.load();
     });
-
-    $('#input_apiToken').change(function() {
-      var key = $('#input_apiToken')[0].value;
-      log("key: " + key);
-      if(key && key.trim() != "") {
-        log("added key " + key);
-        window.authorizations.add("key", new ApiKeyAuthorization("Authorization","Bearer " + key, "header"));
-      }
-    })
-    $('#mId_selector').submit(function() {return false});
-    $('#api_selector').submit(function() {return false});
-    window.swaggerUi.load();
-  });
   </script>
 </head>
-<body class="swagger-section">
-<div id='header'>
-  <div class="swagger-ui-wrap">
-    <a id="logo" href="">V3 REST API Reference</a>
-    <form id='mId_selector'>
-      <div class='input'><input placeholder="Merchant ID (mID)" id="input_mId" name="input_mId" type="text"/></div>
-    </form>
-    <form id='api_selector'>
-      <div class='input'><input placeholder="API Token" id="input_apiToken" name="apiKey" type="text"/></div>
-    </form>
+<body class="swagger-section" data-spy="scroll" data-target="#main_nav_container">
+  <header role="navigation" class="section-header">
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="navbar-header">
+            <a href="//www.clover.com" id="logo">
+              <svg id="clover-logo" xmlns="http://www.w3.org/2000/svg" width="90" height="22" viewBox="0 0 136 33.15">
+                <g id="clover-logo-2" data-name="clover-logo">
+                  <path d="M232.52,99.51a11.12,11.12,0,0,1-8.71,4.29c-5.8,0-10.43-4.16-10.43-9.63s4.42-9.63,10.22-9.63a11.12,11.12,0,0,1,8.71,4.29l-3.87,2.73a5.67,5.67,0,0,0-4.84-2.78,5.4,5.4,0,0,0-5.43,5.38,5.56,5.56,0,0,0,5.64,5.38,6.07,6.07,0,0,0,4.92-2.61Z" transform="translate(-176.46 -77.01)" style="fill:#63666a"></path>
+                  <path d="M234.66,77h4.84v26.41h-4.84V77Z" transform="translate(-176.46 -77.01)" style="fill:#63666a"></path>
+                  <path d="M252.28,84.54c5.8,0,10.43,4.21,10.43,9.63s-4.63,9.63-10.43,9.63-10.47-4.21-10.47-9.63S246.48,84.54,252.28,84.54Zm0,15.18a5.56,5.56,0,1,0-5.8-5.55A5.77,5.77,0,0,0,252.28,99.72Z" transform="translate(-176.46 -77.01)" style="fill:#63666a"></path>
+                  <path d="M261.94,84.92h5.68l4.58,9.88,5-9.88h5.26L272.2,104.56Z" transform="translate(-176.46 -77.01)" style="fill:#63666a"></path>
+                  <path d="M299.2,101.32a11.14,11.14,0,0,1-7.11,2.48c-5.8,0-10.47-4.21-10.47-9.63s4.25-9.63,10.05-9.63a9.24,9.24,0,0,1,9.59,9.63v1.39h-14.8a5.84,5.84,0,0,0,5.64,4.16,5.58,5.58,0,0,0,4.25-1.81Zm-3-9.71a4.8,4.8,0,0,0-4.5-3,5.24,5.24,0,0,0-4.79,3h9.29Z" transform="translate(-176.46 -77.01)" style="fill:#63666a"></path>
+                  <path d="M303.63,93c0-4.42,3.36-8.12,8.83-8.12v4.33c-2.36,0-4,1.43-4,4.37v9.8h-4.79V93Z" transform="translate(-176.46 -77.01)" style="fill:#63666a"></path></g>
+                <g id="clover-symbol-2" data-name="clover-symbol">
+                  <path d="M191.45,85.64A7.5,7.5,0,1,0,184,93.09h7.49V85.64Z" transform="translate(-176.46 -77.01)" style="fill:#43b02a"></path>
+                  <path d="M193.61,85.64a7.5,7.5,0,1,1,7.49,7.45h-7.49V85.64Z" transform="translate(-176.46 -77.01)" style="fill:#43b02a"></path><path d="M193.61,102.7a7.5,7.5,0,1,0,7.49-7.45h-7.49v7.45Z" transform="translate(-176.46 -77.01)" style="fill:#43b02a"></path>
+                  <path d="M191.46,102.7A7.5,7.5,0,1,1,184,95.25h7.49v7.45Zm-7.5,5.35a5.38,5.38,0,0,0,5.4-5.35V97.36H184a5.35,5.35,0,1,0,0,10.7h0Z" transform="translate(-176.46 -77.01)" style="fill:#43b02a"></path>
+                </g>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+  <div class="app-header">
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-2 col-sm-1">
+          <img class="app-header-icon" src="images/api-docs-icon.png" alt="Clover API Docs"/>
+        </div>
+        <div class="col-xs-6 col-sm-8">
+          <h1 class="app-title">REST API Reference</h1>
+          <p class="version">Version 3</p>
+        </div>
+        <div class="col-xs-4 col-sm-3 text-right">
+          <a class="c-button-sm-secondary pull-right" target="_blank" href="https://docs.clover.com/">
+            Developer Docs
+          </a>
+        </div>
+      </div>
+    </div>
   </div>
-</div>
-<p>&nbsp;</p>
-<P id="instructions">For detailed instructions regarding the V3 API, visit the <a id="overviewLink" href="">Overview</a> page.</P>
-<p>&nbsp;</p>
-<div id="swagger-ui-container" class="swagger-ui-wrap"></div>
+  <div class="flex-wrapper">
+    <div id="swagger-ui-container" class="swagger-ui-wrap"></div>
+  </div>
+
+  <footer class="clover-footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12 col-sm-3 pull-right">
+          <ul class="footer-social-links">
+            <li class="footer-link-inline t__white"><a class="footer-social-link" target="_blank" href="https://www.facebook.com/CloverNetworkInc" rel="noopener noreferrer"><i class="fa fa-facebook-square"></i></a></li>
+            <li class="footer-link-inline t__white"><a class="footer-social-link" target="_blank" href="https://twitter.com/cloverpos" rel="noopener noreferrer"><i class="fa fa-twitter"></i></a></li>
+            <li class="footer-link-inline t__white"><a class="footer-social-link" target="_blank" href="https://github.com/clover" rel="noopener noreferrer"><i class="fa fa-github-alt"></i></a></li>
+          </ul>
+        </div>
+        <div class="col-xs-12 col-sm-9">
+          <ul class="footer-links">
+            <li class="footer-link"><a href="/team">Team</a></li>
+            <li class="footer-link"><a href="/jobs">Jobs</a></li>
+            <li class="footer-link"><a href="/developers">Developers</a></li>
+            <li class="footer-link"><a href="http://engblog.clover.com/">Developer Blog</a></li>
+            <li class="footer-link"><a href="/press">Press</a></li>
+            <li class="footer-link"><a href="https://help.clover.com/">Clover Help</a></li>
+            <li class="footer-link"><a href="/contact">Contact Us</a></li>
+            <li class="footer-link"><a href="/setup">Device Setup</a></li>
+          </ul>
+        </div>
+      </div>
+      <hr>
+      <div class="row">
+        <div class="col-xs-12 col-sm-9">
+          <ul class="footer-secondary-links">
+            <li class="footer-link"><a href="/terms">Terms</a></li>
+            <li class="footer-link"><a href="/privacy-policy">Privacy</a></li>
+            <li class="footer-link"><a href="/app-market-terms">App Market Terms</a></li>
+            <li class="footer-link"><a href="/app-market-policies">App Market Policies</a></li>
+            <li class="footer-link"><a href="/developer-agreement">Developer Agreement</a></li>
+            <li class="footer-link"><a href="/legal-guidelines">Developer Legal Guidelines</a></li>
+          </ul>
+        </div>
+        <div class="col-xs-12 col-sm-3 copyright">
+          <p>Copyright 2016 Clover Network, Inc.</p>
+        </div>
+      </div>
+    </div>
+  </footer>
 </body>
 </html>

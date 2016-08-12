@@ -4,8 +4,16 @@ path        = require 'path'
 less        = require 'less'
 
 sourceFiles  = [
-  'SwaggerUi'
-  'view/HeaderView'
+  'SwaggerUiRouter'
+  'model/Choices'
+  'model/Expansions'
+  'model/Filters'
+  'model/Param'
+  'model/Signature'
+  'model/Operation'
+  'model/Resource'
+  'model/Api'
+  'model/Type'
   'view/MainView'
   'view/ResourceView'
   'view/OperationView'
@@ -15,6 +23,10 @@ sourceFiles  = [
   'view/ContentTypeView'
   'view/ResponseContentTypeView'
   'view/ParameterContentTypeView'
+  'view/ParameterChoiceView'
+  'view/NavView'
+  'view/TypeView'
+  'view/GlobalParametersView'
 ]
 
 
@@ -24,8 +36,8 @@ task 'clean', 'Removes distribution', ->
 
 task 'dist', 'Build a distribution', ->
   console.log "Build distribution in ./dist"
-  fs.mkdirSync('dist') if not path.existsSync('dist')
-  fs.mkdirSync('dist/lib') if not path.existsSync('dist/lib')
+  fs.mkdirSync('dist') if not fs.existsSync('dist')
+  fs.mkdirSync('dist/lib') if not fs.existsSync('dist/lib')
 
   appContents = new Array remaining = sourceFiles.length
   for file, index in sourceFiles then do (file, index) ->
@@ -71,7 +83,7 @@ task 'dist', 'Build a distribution', ->
           obj = JSON.parse(fileContents)
           exec 'echo "// swagger-ui.js" > dist/swagger-ui.js'
           exec 'echo "// version ' + obj.version + '" >> dist/swagger-ui.js'
-          exec 'cat src/main/javascript/doc.js dist/_swagger-ui-templates.js dist/_swagger-ui.js >> dist/swagger-ui.js', (err, stdout, stderr) ->
+          exec 'cat node_modules/bootstrap/js/scrollspy.js node_modules/bootstrap/js/affix.js dist/_swagger-ui-templates.js dist/_swagger-ui.js >> dist/swagger-ui.js', (err, stdout, stderr) ->
             throw err if err
             fs.unlink 'dist/_swagger-ui.js'
             fs.unlink 'dist/_swagger-ui-templates.js'
@@ -84,10 +96,13 @@ task 'dist', 'Build a distribution', ->
     # Someone who knows CoffeeScript should make this more Coffee-licious
     console.log '   : Compiling LESS...'
 
-    less.render fs.readFileSync("src/main/less/screen.less", 'utf8'), (err, css) ->
-      fs.writeFileSync("src/main/html/css/screen.css", css)
-    less.render fs.readFileSync("src/main/less/reset.less", 'utf8'), (err, css) ->
-      fs.writeFileSync("src/main/html/css/reset.css", css)
+    less.render(fs.readFileSync("src/main/less/screen.less", 'utf8')).then((output) ->
+      fs.writeFileSync("src/main/html/css/screen.css", output.css))
+    less.render(fs.readFileSync("src/main/less/reset.less", 'utf8')).then((output) ->
+      fs.writeFileSync("src/main/html/css/reset.css", output.css)) 
+    less.render(fs.readFileSync("src/main/less/bootstrap_include.less", 'utf8')).then((output) ->
+      fs.writeFileSync("src/main/html/css/bootstrap.css", output.css))
+
     pack()
 
   pack = ->
@@ -96,6 +111,15 @@ task 'dist', 'Build a distribution', ->
     console.log '   : Copied swagger-ui libs'
     exec 'cp -r node_modules/swagger-client/lib/swagger.js dist/lib'
     console.log '   : Copied swagger dependencies'
+    exec 'cp -r node_modules/selectize/dist/js/standalone/selectize.min.js dist/lib'
+    exec 'cp -r node_modules/selectize/dist/css/selectize.css dist/lib'
+    console.log '   : Copied selectize dependencies'
+    exec 'cp -r node_modules/select2/dist/js/select2.full.min.js dist/lib'
+    exec 'cp -r node_modules/select2/dist/css/select2.min.css dist/lib'
+    console.log '   : Copied select2 dependencies'
+    exec 'rm -r dist/fonts/* || mkdir dist/fonts'
+    exec 'cp -r node_modules/font-awesome/fonts/* dist/fonts'
+    console.log '   : Copied fontawesome dependencies'
     exec 'cp -r src/main/html/* dist'
     console.log '   : Copied html dependencies'
     console.log '   !'

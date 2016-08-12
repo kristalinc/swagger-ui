@@ -1,7 +1,4 @@
-class SwaggerUi extends Backbone.Router
-
-  # Defaults
-  dom_id: "swagger_ui"
+class SwaggerUiRouter extends Backbone.Router
 
   # Attributes
   options: null
@@ -11,13 +8,6 @@ class SwaggerUi extends Backbone.Router
 
   # SwaggerUi accepts all the same options as SwaggerApi
   initialize: (options={}) ->
-    # Allow dom_id to be overridden
-    if options.dom_id?
-      @dom_id = options.dom_id
-      delete options.dom_id
-
-    # Create an empty div which contains the dom_id
-    $('body').append('<div id="' + @dom_id + '"></div>') if not $('#' + @dom_id)?
 
     @options = options
 
@@ -25,17 +15,6 @@ class SwaggerUi extends Backbone.Router
     @options.success = => @render()
     @options.progress = (d) => @showMessage(d)
     @options.failure = (d) => @onLoadFailure(d)
-
-    # Create view to handle the header inputs
-    @headerView = new HeaderView({el: $('#header')})
-
-    # Event handler for when the baseUrl/apiKey is entered by user
-    @headerView.on 'update-swagger-ui', (data) => @updateSwaggerUi(data)
-
-  # Event handler for when url/key is received from user
-  updateSwaggerUi: (data) ->
-    @options.url = data.url
-    @load()
 
   # Create an api and render
   load: ->
@@ -46,24 +25,23 @@ class SwaggerUi extends Backbone.Router
       url = @buildUrl(window.location.href.toString(), url)
 
     @options.url = url
-    @headerView.update(url)
+
     @api = new SwaggerApi(@options)
     @api.build()
-    @api
 
   # This is bound to success handler for SwaggerApi
-  #  so it gets called when SwaggerApi completes loading
+  # so it gets called when SwaggerApi completes loading
   render:() ->
     @showMessage('Finished Loading Resource Information. Rendering Swagger UI...')
-    @mainView = new MainView({model: @api, el: $('#' + @dom_id)}).render()
+        # wrap swaggerApi in backbone model
+    apiModel  = new Api(@api)
+    @mainView = new MainView({model: apiModel, el: $('#swagger-ui-container')}).render()
     @showMessage()
-    switch @options.docExpansion
-      when "full" then Docs.expandOperationsForResource('')
-      when "list" then Docs.collapseOperationsForResource('')
     @options.onComplete(@api, @) if @options.onComplete
+    @setUiLibraries()
     setTimeout(
       =>
-        Docs.shebang()
+        @checkShebang()
       400
     )
 
@@ -84,6 +62,15 @@ class SwaggerUi extends Backbone.Router
         return base + url
       return base + "/" + url
 
+  setUiLibraries: () ->
+    selectPlaceholder = $('select.param-choice').attr('placeholder');
+    $('select.param-choice').select2({
+      placeholder: selectPlaceholder,
+      containerCssClass: 'tpx-select2-container',
+      dropdownCssClass: 'tpx-select2-drop',
+      dropdownAutoWidth : true,
+      })
+
   # Shows message on topbar of the ui
   showMessage: (data = '') ->
     $('#message-bar').removeClass 'message-fail'
@@ -98,4 +85,25 @@ class SwaggerUi extends Backbone.Router
     @options.onFailure(data) if @options.onFailure?
     val
 
-window.SwaggerUi = SwaggerUi
+  checkShebang: ->
+    # If shebang has an operation nickname in it..
+    # e.g. /docs/#!/words/get_search
+    fragments = $.param.fragment().split('/')
+    fragments.shift() # get rid of the bang
+
+    #Expand operation
+    dom_id = 'resource_' + fragments[0]
+    $("#"+dom_id).slideto({highlight: false})
+
+    # Expand operation
+    li_dom_id = fragments.join('_')
+    li_content_dom_id = li_dom_id + "_content"
+
+    $('#'+li_content_dom_id).slideDown()
+    $('#'+li_dom_id).slideto({highlight: false})
+
+  escapeResourceName: (resource) ->
+    resource.replace(/[!"#$%&'()*+,.\/:;<=>?@\[\\\]\^`{|}~]/g, "\\$&")
+
+
+window.SwaggerUiRouter = SwaggerUiRouter
