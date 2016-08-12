@@ -45,6 +45,10 @@ class OperationView extends Backbone.View
     for param in @model.get("parameterModels")
       paramView = new ParameterView({model: param, tagName: 'div'})
       $('.operation-params', $(@el)).append paramView.render().el
+      signatureModel = param.getSignatureModel()
+      if signatureModel and param.get("isBody")
+        signatureView = new SignatureView({model: signatureModel})
+        $('.model-signature', $(@el)).append(signatureView.render().el)
 
 
   addStatusCode: (statusCode) ->

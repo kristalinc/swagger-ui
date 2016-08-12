@@ -22,7 +22,7 @@ class ParameterView extends Backbone.View
     template = @template()
     $(@el).html(template(@model.toJSON()))
 
-    @addSignatureView()
+    @addDataType()
     @addParameterContentTypeView()
 
     # render each choice
@@ -48,12 +48,8 @@ class ParameterView extends Backbone.View
             Handlebars.templates.param
 
 
-  addSignatureView: ->
-    signatureModel = @model.getSignatureModel()
-    if signatureModel and @model.get("isBody")
-      signatureView = new SignatureView({model: signatureModel})
-      $('.model-signature', $(@el)).append(signatureView.render().el)
-    else
+  addDataType: ->
+    if !@model.get("isBody")
       $('.data-type', $(@el)).html(@model.get("type"))
 
   addParameterContentTypeView: ->
