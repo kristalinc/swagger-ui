@@ -516,10 +516,10 @@ function program3(depth0,data) {
 function program4(depth0,data) {
   
   var buffer = "", stack1, stack2;
-  buffer += "\n      <div title='";
+  buffer += "\n      <div title=\"";
   stack2 = ((stack1 = depth0.description),typeof stack1 === functionType ? stack1.apply(depth0) : stack1);
   if(stack2 || stack2 === 0) { buffer += stack2; }
-  buffer += "'>"
+  buffer += "\">"
     + escapeExpression(((stack1 = depth0.scope),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "</div>\n    ";
   return buffer;
@@ -534,7 +534,7 @@ function program6(depth0,data) {
 function program8(depth0,data) {
   
   
-  return "\n  <div class='access'>\n    <span class=\"api-ic ic-off\" title=\"click to authenticate\"></span>\n  </div>\n  ";
+  return "\n  <div class=\"access\">\n    <span class=\"api-ic ic-off\" title=\"click to authenticate\"></span>\n  </div>\n  ";
   }
 
 function program10(depth0,data) {
@@ -546,7 +546,7 @@ function program10(depth0,data) {
 function program12(depth0,data) {
   
   
-  return "\n    <div style='margin:0;padding:0;display:inline'></div>\n    <div class=\"row response-messages-header\">\n      <div class=\"col-sm-12\">\n        <h5>Response Messages</h5>\n      </div>\n    </div>\n    <table class='fullwidth'>\n      <thead>\n      <tr>\n        <th>HTTP Status Code</th>\n        <th>Reason</th>\n        <th>Response Model</th>\n      </tr>\n      </thead>\n      <div class=\"col-sm-6 operation-status\">\n\n      </div>\n    </table>\n    ";
+  return "\n    <div style=\"margin:0;padding:0;display:inline\"></div>\n    <div class=\"row response-messages-header\">\n      <div class=\"col-sm-12\">\n        <h5>Response Messages</h5>\n      </div>\n    </div>\n    <table class=\"fullwidth\">\n      <thead>\n      <tr>\n        <th>HTTP Status Code</th>\n        <th>Reason</th>\n        <th>Response Model</th>\n      </tr>\n      </thead>\n      <div class=\"col-sm-6 operation-status\">\n\n      </div>\n    </table>\n    ";
   }
 
 function program14(depth0,data) {
@@ -555,7 +555,7 @@ function program14(depth0,data) {
   return "\n    <div class=\"row\">\n      <div class=\"col-sm-12\">\n        <h5>Response Class</h5>\n      </div>\n    </div>\n    ";
   }
 
-  buffer += "<div class=\"heading row\">\n  <div class=\"col-sm-12\">\n    <h4 class=\"human-readable-name\">\n      <a href='#!/";
+  buffer += "<div class=\"heading row\">\n  <div class=\"col-sm-12\">\n    <h4 class=\"human-readable-name\">\n      <a href=\"#!/";
   if (stack1 = helpers.parentId) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.parentId; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
@@ -563,11 +563,11 @@ function program14(depth0,data) {
   if (stack1 = helpers.nickname) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.nickname; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "' class=\"toggleOperation\">";
+    + "\" class=\"toggleOperation\">";
   if (stack1 = helpers.summary) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.summary; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "</a>\n    </h4>\n  </div>\n</div>\n<div class=\"row\">\n  <div class=\"col-sm-12 options\">\n    <span class='http_method'>\n    <a href='#!/";
+  buffer += "</a>\n    </h4>\n  </div>\n</div>\n<div class=\"row\">\n  <div class=\"col-sm-12 options\">\n    <span class=\"http_method\">\n    <a href=\"#!/";
   if (stack1 = helpers.parentId) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.parentId; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
@@ -575,11 +575,11 @@ function program14(depth0,data) {
   if (stack1 = helpers.nickname) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.nickname; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "' class=\"toggleOperation\">";
+    + "\" class=\"toggleOperation\">";
   if (stack1 = helpers.method) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.method; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "</a>\n    </span>\n    <span class='path'>\n    <a href='#!/";
+    + "</a>\n    </span>\n    <span class=\"path\">\n    <a href=\"#!/";
   if (stack1 = helpers.parentId) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.parentId; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
@@ -587,11 +587,11 @@ function program14(depth0,data) {
   if (stack1 = helpers.nickname) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.nickname; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "' class=\"toggleOperation\">";
+    + "\" class=\"toggleOperation\">";
   if (stack1 = helpers.path) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.path; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "</a>\n    </span>\n  </div>\n</div>\n<div class=\"content\" id='";
+    + "</a>\n    </span>\n  </div>\n</div>\n<div class=\"content\" id=\"";
   if (stack1 = helpers.parentId) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.parentId; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
@@ -599,7 +599,7 @@ function program14(depth0,data) {
   if (stack1 = helpers.nickname) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.nickname; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "_content' style=''>\n  ";
+    + "_content\" style=\"display:none\">\n  ";
   options = {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data};
   if (stack1 = helpers.oauth) { stack1 = stack1.call(depth0, options); }
   else { stack1 = depth0.oauth; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
@@ -620,18 +620,18 @@ function program14(depth0,data) {
   else { stack1 = depth0.oauth; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   if (!helpers.oauth) { stack1 = blockHelperMissing.call(depth0, stack1, options); }
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\n  <form accept-charset='UTF-8' class='sandbox'>\n    <div style='margin:0;padding:0;display:inline'></div>\n    ";
+  buffer += "\n  <form accept-charset=\"UTF-8\" class=\"sandbox\">\n    <div style=\"margin:0;padding:0;display:inline\"></div>\n    ";
   stack1 = helpers['if'].call(depth0, depth0.parameters, {hash:{},inverse:self.noop,fn:self.program(10, program10, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\n    <div class=\"row submit-button-row\">\n    	<div class=\"col-sm-6\">\n    		<button class='c-button-secondary submit ";
+  buffer += "\n    <div class=\"row submit-button-row\">\n    	<div class=\"col-sm-6\">\n    		<button class=\"c-button-secondary submit ";
   if (stack1 = helpers.method) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.method; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "' name='commit' type='button submit'>Submit ";
+    + "\" name=\"commit\" type=\"button submit\">Submit ";
   if (stack1 = helpers.method) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.method; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
-    + "</button>\n      </div>\n    </div>\n    <div class=\"row response-row\">\n      <div class=\"col-sm-12\">\n    		<div class='sandbox_header'>\n    			<button class='response_hider' type='button' style='display:none' href='#'>Hide Response</button>\n    		</div>\n    		<div class=\"row\">\n    			<div class='response col-sm-12' style='display:none'>\n    				<h6>Request URL</h6>\n    				<div class='block request_url'></div>\n    				<h6>Response Body</h6>\n    				<div class='block response_body'></div>\n    				<h6>Response Code</h6>\n    				<div class='block response_code'></div>\n    				<h6>Response Headers</h6>\n    				<div class='block response_headers'></div>\n    			</div>\n    		</div>\n    	</div>\n    </div>\n    ";
+    + "</button>\n      </div>\n    </div>\n    <div class=\"row response-row\">\n      <div class=\"col-sm-12\">\n    		<div class=\"sandbox_header\">\n    			<button class=\"response_hider\" type=\"button\" style=\"display:none\" href=\"#\">Hide Response</button>\n    		</div>\n    		<div class=\"row\">\n    			<div class=\"response col-sm-12\" style=\"display:none\">\n    				<h6>Request URL</h6>\n    				<div class=\"block request_url\"></div>\n    				<h6>Response Body</h6>\n    				<div class=\"block response_body\"></div>\n    				<h6>Response Code</h6>\n    				<div class=\"block response_code\"></div>\n    				<h6>Response Headers</h6>\n    				<div class=\"block response_headers\"></div>\n    			</div>\n    		</div>\n    	</div>\n    </div>\n    ";
   stack1 = helpers['if'].call(depth0, depth0.responseMessages, {hash:{},inverse:self.noop,fn:self.program(12, program12, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += "\n    ";
