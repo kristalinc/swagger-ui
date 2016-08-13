@@ -55,6 +55,12 @@ input, button, select, textarea {
   font-size: 11px;
   color: @c-mtrl-gray-50;
   text-transform: capitalize;
+  .data-type::before {
+    content: '(';
+  }
+  .data-type::after {
+    content: ')';
+  }
 }
 
 .c-code-help {
