@@ -240,12 +240,13 @@
               font-family: @monospace-font;
               &.propName {
                 font-weight: bold;
-                color: @clover-gray-90;
+                color: @c-mtrl-dark-text;
                 display: block;
               }
               &.propType {
+                color: @c-mtrl-gray-60;
+                font-size: 12px;
                 display: block;
-
               }
               &.propOpt {
 
@@ -254,9 +255,14 @@
                 color: @c-mtrl-gray-50;
                 text-transform: uppercase;
               }
+              &.propVals {
+                color: @c-mtrl-blue-90;
+                font-weight: 400;
+                display: block;
+              }
               &.propDesc {
                 display: block;
-                color: @clover-gray-60;
+                color: @c-mtrl-dark-text;
                 font-family: @sans-serif-font;
                 margin-top: 0.75em;
                 &:before {

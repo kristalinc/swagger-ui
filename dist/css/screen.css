@@ -15711,7 +15711,7 @@ hr.solid {
 .swagger-section pre .css .id,
 .swagger-section pre .css .class,
 .swagger-section pre .css .pseudo {
-  color: #FB6264;
+  color: #D0895B;
 }
 .swagger-section .tomorrow-orange,
 .swagger-section pre .number,
@@ -15720,7 +15720,7 @@ hr.solid {
 .swagger-section pre .literal,
 .swagger-section pre .params,
 .swagger-section pre .constant {
-  color: #F4A96F;
+  color: #CE5052;
 }
 .swagger-section .tomorrow-yellow,
 .swagger-section pre .class,
@@ -15730,12 +15730,12 @@ hr.solid {
 }
 .swagger-section .tomorrow-green,
 .swagger-section pre .string,
-.swagger-section pre .value,
+.swagger-section pre .value .string,
 .swagger-section pre .inheritance,
 .swagger-section pre .header,
 .swagger-section pre .ruby .symbol,
 .swagger-section pre .xml .cdata {
-  color: #6ADA99;
+  color: #57B27D;
 }
 .swagger-section .tomorrow-aqua,
 .swagger-section pre .css .hexcolor {
@@ -16745,19 +16745,26 @@ hr.solid {
 }
 .swagger-section .description span.propName {
   font-weight: bold;
-  color: #404040;
+  color: #253338;
   display: block;
 }
 .swagger-section .description span.propType {
+  color: #515D61;
+  font-size: 12px;
   display: block;
 }
 .swagger-section .description span.propOptKey {
   color: #858D90;
   text-transform: uppercase;
 }
+.swagger-section .description span.propVals {
+  color: #2D5C70;
+  font-weight: 400;
+  display: block;
+}
 .swagger-section .description span.propDesc {
   display: block;
-  color: #777777;
+  color: #253338;
   font-family: "Roboto", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   margin-top: 0.75em;
 }
@@ -16898,6 +16905,12 @@ textarea {
   font-size: 11px;
   color: #858D90;
   text-transform: capitalize;
+}
+.c-help-text .data-type::before {
+  content: '(';
+}
+.c-help-text .data-type::after {
+  content: ')';
 }
 .c-code-help {
   font-family: "Roboto Mono", "Source Code Pro", "Anonymous Pro", Consolas, Monaco, monospace;
