@@ -16727,6 +16727,15 @@ hr.solid {
     }
     }*/
 }
+.swagger-section .row-action {
+  margin-top: 8px;
+}
+.swagger-section .row-action .c-button-remove {
+  color: #777777;
+}
+.swagger-section .row-action .c-button-remove:disabled {
+  display: none;
+}
 .swagger-section h2.resource-title {
   margin: 8px 0;
 }
@@ -16749,12 +16758,14 @@ hr.solid {
   display: block;
 }
 .swagger-section .description span.propType {
-  color: #515D61;
+  color: #858D90;
   font-size: 12px;
   display: block;
 }
 .swagger-section .description span.propOptKey {
   color: #858D90;
+  font-size: 12px;
+  font-weight: 300;
   text-transform: uppercase;
 }
 .swagger-section .description span.propVals {
@@ -16880,6 +16891,9 @@ h4 {
 p {
   font-family: "Roboto", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 14px;
+}
+p.notes {
+  color: #858D90;
 }
 pre,
 code,

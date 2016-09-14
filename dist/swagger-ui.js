@@ -555,7 +555,7 @@ function program14(depth0,data) {
   return "\n    <div class=\"row\">\n      <div class=\"col-sm-12\">\n        <h5>Response Class</h5>\n      </div>\n    </div>\n    ";
   }
 
-  buffer += "<div class=\"heading row\">\n  <div class=\"col-sm-12\">\n    <h4 class=\"human-readable-name\">\n      <a href=\"#!/";
+  buffer += "<div class=\"heading row\">\n  <div class=\"col-sm-6\">\n    <h4 class=\"human-readable-name\">\n      <a href=\"#!/";
   if (stack1 = helpers.parentId) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.parentId; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
@@ -567,7 +567,7 @@ function program14(depth0,data) {
   if (stack1 = helpers.summary) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.summary; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "</a>\n    </h4>\n  </div>\n</div>\n<div class=\"row\">\n  <div class=\"col-sm-12 options\">\n    <span class=\"http_method\">\n    <a href=\"#!/";
+  buffer += "</a>\n    </h4>\n  </div>\n  <div class=\"col-sm-6 options\">\n    <span class=\"http_method\">\n    <a href=\"#!/";
   if (stack1 = helpers.parentId) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
   else { stack1 = depth0.parentId; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   buffer += escapeExpression(stack1)
@@ -620,7 +620,11 @@ function program14(depth0,data) {
   else { stack1 = depth0.oauth; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
   if (!helpers.oauth) { stack1 = blockHelperMissing.call(depth0, stack1, options); }
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\n  <form accept-charset=\"UTF-8\" class=\"sandbox\">\n    <div style=\"margin:0;padding:0;display:inline\"></div>\n    ";
+  buffer += "\n  <div class=\"row definition\">\n    <div class=\"col-sm-6\">\n      <p class=\"notes\">";
+  if (stack1 = helpers.notes) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  else { stack1 = depth0.notes; stack1 = typeof stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  buffer += escapeExpression(stack1)
+    + "</p>\n    </div>\n  </div>\n  <form accept-charset=\"UTF-8\" class=\"sandbox\">\n    <div style=\"margin:0;padding:0;display:inline\"></div>\n    ";
   stack1 = helpers['if'].call(depth0, depth0.parameters, {hash:{},inverse:self.noop,fn:self.program(10, program10, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += "\n    <div class=\"row submit-button-row\">\n    	<div class=\"col-sm-6\">\n    		<button class=\"c-button-secondary submit ";
@@ -769,10 +773,10 @@ function program1(depth0,data) {
   return buffer;
   }
 
-  buffer += "<!-- <button disabled type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-hidden=\"true\">&times;</button> -->\n<div class=\"row param-choice-filter\">\n	<div class=\"col-sm-4\">\n		<select class=\"param-choice\">\n			<option value=\"\" disabled selected> Filter by... </option>\n			";
+  buffer += "<div class=\"row param-choice-filter\">\n	<div class=\"col-sm-4\">\n		<select class=\"param-choice\">\n			<option value=\"\" disabled selected> Filter by... </option>\n			";
   stack1 = helpers.each.call(depth0, depth0.allChoices, {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\n		</select>\n	</div>\n	<div class=\"col-sm-4\">\n		<select class=\"filter-operator\">\n			<option value=\"==\">==</option>\n			<option value=\"!=\">!=</option>\n			<option value=\">\">&gt;</option>\n			<option value=\"<\">&lt;</option>\n			<option value=\">=\">&gt;=</option>\n			<option value=\"<=\">&lt;=</option>\n		</select>\n	</div>\n	<div class=\"col-sm-4\">\n		<input class=\"filter-argument c-input-field\">\n	</div>\n</div>\n";
+  buffer += "\n		</select>\n	</div>\n	<div class=\"col-sm-3\">\n		<select class=\"filter-operator\">\n			<option value=\"==\">==</option>\n			<option value=\"!=\">!=</option>\n			<option value=\">\">&gt;</option>\n			<option value=\"<\">&lt;</option>\n			<option value=\">=\">&gt;=</option>\n			<option value=\"<=\">&lt;=</option>\n		</select>\n	</div>\n	<div class=\"col-sm-4\">\n		<input class=\"filter-argument c-input-field\">\n	</div>\n	<div class=\"col-sm-1 row-action\">\n		<button disabled type=\"button\" class=\"close c-button-remove e__button-icon-secondary\" data-dismiss=\"modal\" aria-hidden=\"true\"><i class=\"fa fa-trash-o\"></i></button>\n	</div>\n</div>\n";
   return buffer;
   });
 })();
@@ -1138,7 +1142,7 @@ function program4(depth0,data) {
   return "\n  <option value=\"application/json\">application/json</option>\n";
   }
 
-  buffer += "<label for=\"parameterContentType\"></label>\n<select name=\"parameterContentType\">\n";
+  buffer += "<label for=\"parameterContentType\" class=\"c-help-text\"></label>\n<select name=\"parameterContentType\">\n";
   stack1 = helpers['if'].call(depth0, depth0.consumes, {hash:{},inverse:self.program(4, program4, data),fn:self.program(1, program1, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += "\n</select>\n";

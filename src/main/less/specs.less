@@ -8,6 +8,16 @@
 @delete-color: #a94446;
 
 .swagger-section {
+  .row-action {
+    margin-top: 8px;
+    .c-button-remove {
+        color: @clover-gray-60;
+      &:disabled {
+        display: none;
+      }
+    }
+  }
+
   h2.resource-title {
     margin: 8px 0;
     a {
@@ -244,7 +254,7 @@
                 display: block;
               }
               &.propType {
-                color: @c-mtrl-gray-60;
+                color: @c-mtrl-gray-50;
                 font-size: 12px;
                 display: block;
               }
@@ -253,6 +263,8 @@
               }
               &.propOptKey {
                 color: @c-mtrl-gray-50;
+                font-size: 12px;
+                font-weight: 300;
                 text-transform: uppercase;
               }
               &.propVals {
