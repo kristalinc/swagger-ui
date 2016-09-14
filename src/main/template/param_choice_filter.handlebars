@@ -1,4 +1,3 @@
-<!-- <button disabled type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button> -->
 <div class="row param-choice-filter">
 	<div class="col-sm-4">
 		<select class="param-choice">
@@ -8,7 +7,7 @@
 			{{/each}}
 		</select>
 	</div>
-	<div class="col-sm-4">
+	<div class="col-sm-3">
 		<select class="filter-operator">
 			<option value="==">==</option>
 			<option value="!=">!=</option>
@@ -20,5 +19,8 @@
 	</div>
 	<div class="col-sm-4">
 		<input class="filter-argument c-input-field">
+	</div>
+	<div class="col-sm-1 row-action">
+		<button disabled type="button" class="close c-button-remove e__button-icon-secondary" data-dismiss="modal" aria-hidden="true"><i class="fa fa-trash-o"></i></button>
 	</div>
 </div>
