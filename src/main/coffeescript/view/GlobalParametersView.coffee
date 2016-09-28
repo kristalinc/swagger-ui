@@ -1,8 +1,11 @@
 class GlobalParametersView extends Backbone.View
 
   events: {
-    'change #input_mId' : 'setId'
-    'change #input_apiToken' : 'setToken'
+    'change #input_mId'       : 'setId'
+    'change #input_apiToken'  : 'setToken'
+    'focusin'                 : 'hasFocus'
+    'focusout'                : 'lostFocus'
+    'input .c-input-field'    : 'checkForContent'
   }
 
   initialize: ->
@@ -11,6 +14,21 @@ class GlobalParametersView extends Backbone.View
   render: ->
     $(@el).html(Handlebars.templates.global_parameters())
     @
+
+  hasFocus: ->
+    form = $('.c-box-filter', $(@el))
+    form.find('input:focus').parent().addClass "c-input-active"
+
+  lostFocus: ->
+    form = $('.c-box-filter', $(@el))
+    form.find('input').parent().removeClass "c-input-active"
+
+  checkForContent: (e) ->
+    inputField = $(e.currentTarget)
+    if ($(inputField).length && $(inputField).val().length)
+      $(inputField).parent('.input-group').addClass('c-input-group-filled')
+    else
+      $(inputField).parent('.input-group').removeClass('c-input-group-filled')
 
   setId: (ev) ->
     $('[name="mId"]').val($(ev.currentTarget).val()).trigger("change")

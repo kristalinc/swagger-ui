@@ -99,7 +99,9 @@ class SwaggerUiRouter extends Backbone.Router
     li_dom_id = fragments.join('_')
     li_content_dom_id = li_dom_id + "_content"
 
-    $('#'+li_content_dom_id).slideDown()
+    $('#'+li_content_dom_id).parent('.operation').addClass('expanded')
+    $('#'+li_content_dom_id).prev('.heading').find('.operation-actions i').removeClass().addClass('fa fa-angle-up')
+    $('#'+li_content_dom_id).slideDown(200)
     $('#'+li_dom_id).slideto({highlight: false})
 
   escapeResourceName: (resource) ->

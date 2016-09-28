@@ -14,8 +14,8 @@
 @font-size-base:              13px;
 @font-family-base:            @sans-serif-font;
 @border-color-base:           @clover-gray-10;
-@border-color-active-base:    @lt-cool-clover-green;
-@color-highlight-base:        @light-clover-green;
+@border-color-active-base:    fade(@clover-gray-10, 0%);
+@color-highlight-base:        fade(@c-mtrl-blue-button, 50%);
 
 @error-color:                 @c-mtrl-red-button;
 @success-color:               @c-mtrl-green-button;
@@ -106,7 +106,7 @@
 
   font-family: @font-family-base;
   border-radius: 0;
-  padding: 4px 8px;
+  padding: 4px 8px 4px 0;
 
   .select2-choice {
     height: 34px;
@@ -260,8 +260,9 @@
 .tpx-select2-drop {
   font-family: @font-family-base;
   border-color: @border-color-active-base;
-  box-shadow: 0 3px 3px rgba(0,0,0,.15);
-  border-top: 1px solid @border-color-active-base;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  border-width: 1px 0 0 0;
+  border-color: @border-color-active-base;
   border-radius: 0;
 
   .select2-search {
@@ -432,11 +433,14 @@
 
     .select2-selection__rendered {
       padding: 0;
+      min-height: 28px;
     }
 
     .select2-selection__choice {
       border-radius: 14px;
       margin-top: 0;
+      margin-bottom: 8px;
+      margin-right: 8px;
       border: 0;
       line-height: 20px;
       padding: 4px 14px;
@@ -455,15 +459,24 @@
   line-height: 12px;
 }
 .select2-container--default .select2-selection--multiple {
-  .input-gray-theme(1px 1px 1px 1px);
+  .input-gray-theme(0 0 1px 0);
+  transition: all 0.1s;
 }
 
 .select2-container--default.select2-container--focus .select2-selection--multiple {
-  border-color: @lt-cool-clover-green;
+  background-color: transparent;
+  border-color: @clover-gray-10;
+  border-width: 0 0 1px 0;
+  box-shadow: none;
+  color: @c-mtrl-gray-60;
+}
+.select2-container--default.select2-container--focus .select2-selection--multiple:hover {
+  border-color: @c-mtrl-blue-text;
 }
 
 .select2-container--default .select2-results__option--highlighted[aria-selected] {
-  background-color: @lt-cool-clover-green;
+  color: @c-mtrl-gray-60;
+  background-color: fade(@c-mtrl-blue-button, 10%);
 }
 
 .select2-results__option {

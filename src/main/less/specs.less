@@ -22,6 +22,9 @@
     margin: 8px 0;
     a {
       text-transform: capitalize;
+      &:hover {
+        border-bottom: 0;
+      }
     }
   }
   div.options {
@@ -31,6 +34,24 @@
     font-style: normal;
     a {
       border-bottom: 0;
+    }
+  }
+  .operation {
+
+    .heading {
+      cursor: pointer;
+      padding: 16px 8px;
+      margin: 0 0 0 0;
+    }
+
+    .content {
+      padding: 16px 8px;
+    }
+
+    &.expanded {
+      .heading {
+        border-bottom: 1px solid @c-mtrl-gray-10;
+      }
     }
   }
     /*

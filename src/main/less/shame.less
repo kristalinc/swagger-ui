@@ -103,12 +103,17 @@
 }
 .http_method a, .path a {
   word-break: break-all;
-  color: @clover-gray-90;
+  color: @c-mtrl-gray-60;
   font-family: @monospace-font;
   font-size: 13px;
   border-bottom: 0;
   &:hover {
     border-bottom: 0;
+  }
+}
+.heading:hover .options {
+  .http_method a, .path a {
+    color: @c-mtrl-darkbluegray-bg;
   }
 }
 #global_params_container.affix {
@@ -119,19 +124,48 @@
   min-width: 240px;
 }
 div.operations {
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+  li.operation {
+    box-shadow: 0 0 1px rgba(0,0,0,.16),0 6px 12px rgba(0,0,0,.32);
+    &.expanded {
+      box-shadow: 0 0 8px rgba(0,0,0,.16),0 6px 12px rgba(0,0,0,.32);
+    }
+  }
 }
 
-div.operations>li {
-  padding: 16px 8px;
-  border-bottom: 1px solid @clover-gray-5;
-  background: @clover-white;
+li.operation {
+  transition: all 0.2s ease-in-out;
+  .heading {
+    position: relative;
+  }
+  .heading .operation-actions {
+    color: rgba(0, 0, 0, 0.38);
+    display: inline-block;
+    position: absolute;
+    top: 6px;
+    right: 16px;
+    font-size: 20px;
+  }
+  .heading:active, .heading:focus {
+    background: @c-mtrl-gray-10;
+  }
+  .heading:hover .operation-actions {
+    color: rgba(0, 0, 0, 0.52);
+  }
+  .heading, .content {
+    border-bottom: 1px solid @clover-gray-5;
+    background: @clover-white;
+  }
 
   &:first-of-type {
-    border-top: 1px solid @clover-gray-5;
+    .heading {
+      border-top: 1px solid @clover-gray-5;
+    }
   }
-  &[style~="display=block"] {
-    transform: scale(120%);
+  &.expanded {
+    // margin: 24px -8px;
+    // transform: scale(102%);
+    .heading .operation-actions {
+    }
   }
 }
 div.operationTypes > li {
@@ -145,7 +179,7 @@ li.resource div.operationTypes {
 }
 
 #global_params_container.affix + #resources_container li.resource {
-  margin-top: 150px;
+  margin-top: 200px;
 }
 
 div.operationTypes > li::before {
@@ -206,6 +240,10 @@ section.c-box-filter {
 
 .autofill {
   color: @c-mtrl-green-text;
+  font-size: 11px;
+  position: absolute;
+  top: -8px;
+  right: 0;
 }
 
 .button__toggle {
