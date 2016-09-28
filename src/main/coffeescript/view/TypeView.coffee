@@ -14,7 +14,8 @@ class TypeView extends Backbone.View
   addOperations: ->
     for operationModel in @model.get('operationModels')
       operationView = new OperationView({
-        model: operationModel 
+        model: operationModel
         tagName: 'li'
+        className: 'operation'
       })
       $('.operations', $(@el)).append(operationView.render().el)

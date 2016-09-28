@@ -7,6 +7,12 @@ class OperationView extends Backbone.View
     'click .response_hider'   : 'hideResponse'
     'click .toggleOperation'  : 'toggleOperationContent'
     'click .expandable'       : 'expandedFromJSON'
+    'focusin .c-input-field'  : 'hasFocus'
+    'focusout .c-input-field' : 'lostFocus'
+    'focusin .param-code'     : 'hasQueryFocus'
+    'focusout .param-code'    : 'lostQueryFocus'
+    'input .c-input-field'    : 'checkForContent'
+    'change .c-input-field'   : 'checkForContent'
   }
 
   initialize: ->
@@ -32,6 +38,31 @@ class OperationView extends Backbone.View
     @addStatusCode statusCode for statusCode in @model.get("responseMessages")
 
     @
+
+  hasFocus: ->
+    form = $('.sandbox', $(@el))
+    form.find('input:focus').parent().addClass "c-input-active"
+    form.find('textarea:focus').parent().addClass "c-input-active"
+
+  hasQueryFocus: (e) ->
+    queryCode = $(e.currentTarget)
+    queryCode.addClass "c-query-active"
+
+  lostFocus: ->
+    form = $('.sandbox', $(@el))
+    form.find('input').parent().removeClass "c-input-active"
+    form.find('textarea').parent().removeClass "c-input-active"
+
+  lostQueryFocus: ->
+    queryCode = $('.param-code', $(@el))
+    queryCode.removeClass "c-query-active"
+
+  checkForContent: (e) ->
+    inputField = $(e.currentTarget)
+    if ($(inputField).length && $(inputField).val().length)
+      $(inputField).parent('.c-input-group').addClass('c-input-group-filled')
+    else
+      $(inputField).parent('.c-input-group').removeClass('c-input-group-filled')
 
   addSignatureView: ->
     signatureModel = @model.getSignatureModel()
@@ -63,10 +94,9 @@ class OperationView extends Backbone.View
     form = $('.sandbox', $(@el))
     error_free = true
     form.find("input.required").each ->
-      $(@).removeClass "error"
+      $(@).parent().removeClass "error"
       if jQuery.trim($(@).val()) is ""
-        $(@).addClass "error"
-        $(@).wiggle
+        $(@).parent().addClass "error"
           callback: => $(@).focus()
         error_free = false
 
@@ -182,8 +212,8 @@ class OperationView extends Backbone.View
   # handler for hide response link
   hideResponse: (e) ->
     e?.preventDefault()
-    $(".response", $(@el)).slideUp()
-    $(".response_hider", $(@el)).fadeOut()
+    $(".response", $(@el)).slideUp(200)
+    $(".response_hider", $(@el)).fadeOut(200)
 
 
   # Show response from server
@@ -295,12 +325,22 @@ class OperationView extends Backbone.View
     $(".response_code", $(@el)).html "<pre>" + response.status + "</pre>"
     $(".response_body", $(@el)).html response_body
     $(".response_headers", $(@el)).html "<pre>" + JSON.stringify(response.headers, null, "  ").replace(/\n/g, "<br>") + "</pre>"
-    $(".response", $(@el)).slideDown()
+    $(".response", $(@el)).slideDown(200)
     $(".response_hider", $(@el)).show()
     $(".response_throbber", $(@el)).hide()
     hljs.highlightBlock($('.response_body', $(@el))[0])
 
   toggleOperationContent: ->
     $elem = $('#' + swaggerUiRouter.escapeResourceName(@model.get("parentId")) + "_" + @model.get("nickname") + "_content")
-    if $elem.is(':visible') then $elem.slideUp() else $elem.slideDown()
+    if $elem.is(':visible')
+      $elem.parent('.operation').removeClass('expanded')
+      $elem.prev('.heading').find('.operation-actions i').removeClass()
+      $elem.prev('.heading').find('.operation-actions i').addClass('fa fa-angle-down')
+      $elem.slideUp(200)
+    else
+      $elem.parent('.operation').addClass('expanded')
+      $elem.prev('.heading').find('.operation-actions i').removeClass()
+      $elem.prev('.heading').find('.operation-actions i').addClass('fa fa-angle-up')
+      $elem.slideDown(200)
+
     # if $elem.isnot(':visible') then $($elem).parent.addClass('content-open') else $($elem).parent.removeClass('content-open')

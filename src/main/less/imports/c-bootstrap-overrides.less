@@ -10,7 +10,7 @@
 
 // overriding boostrap defaults
 // --------------------------------------
-input[type="radio"], 
+input[type="radio"],
 input[type="checkbox"],
 label:hover {
   cursor: pointer;
@@ -75,15 +75,21 @@ label:hover {
   }
 }
 
-button.close {
-  position: absolute;
-  right: 7px;
-  z-index: 1000;
+button.close.e__button-icon-secondary.c-button-remove {
+  border-color: transparent;
+  border-style: solid;
+  border-width: 1px 1px 1px 1px;
+  color: @clover-gray-60;
+  &:hover {
+    border-color: @clover-gray-60;
+    color: @clover-black;
+    opacity: 1;
+  }
 }
 
 .close {
   font-size: 14px;
-  opacity: 0.7;
+  opacity: 1;
 }
 
 .container {
@@ -184,7 +190,7 @@ ul.multi-select-menu > li > a {
 
 .row-center {
   text-align: center;
-  
+
   .col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, .col-lg-3, .col-xs-4, .col-sm-4, .col-md-4, .col-lg-4, .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5, .col-xs-6, .col-sm-6, .col-md-6, .col-lg-6, .col-xs-7, .col-sm-7, .col-md-7, .col-lg-7, .col-xs-8, .col-sm-8, .col-md-8, .col-lg-8, .col-xs-9, .col-sm-9, .col-md-9, .col-lg-9, .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10, .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11, .col-xs-12, .col-sm-12, .col-md-12, .col-lg-12 {
     float: none;
     margin: 0 auto;
